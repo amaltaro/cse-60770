@@ -1,0 +1,11 @@
+Package            Version
+------------------ ---------
+certifi            2024.8.30
+charset-normalizer 3.3.2
+idna               3.9
+packaging          24.1
+pip                24.2
+requests           2.32.3
+setuptools         72.2.0
+urllib3            2.2.3
+wheel              0.44.0
