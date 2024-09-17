@@ -15,7 +15,7 @@ class NVD_DB():
     def __init__(self):
         # variable to hold a map of CVE name and row id in the database (CVE name is the key)
         self.cve_map = {}
-        self.db_file = os.path.join(os.getenv("HOME"), "nvd_data.db")
+        self.db_file = os.path.join(os.getenv("PWD"), "nvd_data.db")
         print(f"Initializing database at: {self.db_file}")
         self.connect()
 

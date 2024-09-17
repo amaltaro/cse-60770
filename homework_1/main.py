@@ -87,11 +87,11 @@ def check_vulnerability(data_match, vendor, artifact, this_version):
         cpe_vendor = cpe.split(":")[3]
         if vendor not in cpe and cpe_vendor not in vendor:
             continue
-        print(f"    DEBUG: vendor: {vendor} in CPE: {cpe}. Versions: {ver_st}, {ver_end_inc}, {ver_end_exc}")
+        #print(f"    DEBUG: vendor: {vendor} in CPE: {cpe}. Versions: {ver_st}, {ver_end_inc}, {ver_end_exc}")
 
         # Now the annoying part, compare version strings!!!
         if ver_st is None and ver_end_inc is None and ver_end_exc is None:
-            print(f"There is no version defined for: {cve} {cpe}. Software vulnerable!")
+            #print(f"There is no version defined for: {cve} {cpe}. Software vulnerable!")
             report += f"Dependency: {artifact}\nVersion(s): {this_version}\n"
             report += f"Vulnerabilities:\n- {cve} ({sever} severity)\n\n"
             continue
@@ -101,23 +101,23 @@ def check_vulnerability(data_match, vendor, artifact, this_version):
 
         if ver_st:
             if Version(dict_ver["this_version"]) < Version(dict_ver["ver_start"]):
-                print(f'    Skip cpe as version: {dict_ver["this_version"]} < {dict_ver["ver_start"]} version start')
+                #print(f'    Skip cpe as version: {dict_ver["this_version"]} < {dict_ver["ver_start"]} version start')
                 continue
             if ver_end_inc and (Version(dict_ver["this_version"]) > Version(dict_ver["ver_end_inc"])):
-                print(f'    Skip cpe as version: {dict_ver["this_version"]} > {dict_ver["ver_end_inc"]} version end including')
+                #print(f'    Skip cpe as version: {dict_ver["this_version"]} > {dict_ver["ver_end_inc"]} version end including')
                 continue
             if ver_end_exc and (Version(dict_ver["this_version"]) >= Version(dict_ver["ver_end_exc"])):
-                print(f'    Skip cpe as version: {dict_ver["this_version"]} >= {dict_ver["ver_end_exc"]} version end excluding')
+                #print(f'    Skip cpe as version: {dict_ver["this_version"]} >= {dict_ver["ver_end_exc"]} version end excluding')
                 continue
         if ver_end_inc and (Version(dict_ver["this_version"]) > Version(dict_ver["ver_end_inc"])):
-            print(f'    Skip cpe as version: {dict_ver["this_version"]} > {dict_ver["ver_end_inc"]} version end including and no version start')
+            #print(f'    Skip cpe as version: {dict_ver["this_version"]} > {dict_ver["ver_end_inc"]} version end including and no version start')
             continue
         if ver_end_exc and (Version(dict_ver["this_version"]) >= Version(dict_ver["ver_end_exc"])):
-            print(f'    Skip cpe as version: {dict_ver["this_version"]} >= {dict_ver["ver_end_exc"]} version end excluding and no version start')
+            #print(f'    Skip cpe as version: {dict_ver["this_version"]} >= {dict_ver["ver_end_exc"]} version end excluding and no version start')
             continue
         # then it is vulnerable
         version_msg = make_version_msg(this_version, ver_st, ver_end_inc, ver_end_exc)
-        print(f"    There is no version defined for: {cve} {cpe}. Software vulnerable!")
+        #print(f"    There is no version defined for: {cve} {cpe}. Software vulnerable!")
         report += f"Dependency: {artifact}\nVersion(s): {version_msg}\n"
         report += f"Vulnerabilities:\n- {cve} ({sever} severity)\n\n"
     return report
@@ -193,7 +193,7 @@ def main(mode, pom_path):
 
     # now parse the XML POM file and match the vulnerabilities
     dependencies = parse_pom_dependencies(pom_path)
-    print("*** DEBUG dependencies")
+    #print("*** DEBUG dependencies")
     result = ""
     for vendor, artifact, this_version in dependencies:
         print(f'Vendor: {vendor}, Artifact: {artifact}, Version: {this_version}')

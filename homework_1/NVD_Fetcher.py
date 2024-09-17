@@ -176,15 +176,15 @@ class NVD_Fetcher():
     
     def save_output(self):
         """
-        Creates a directory at the home directory and save the parsed CVE
+        Creates a directory at the current directory and save the parsed CVE
         data for the whole feed file.
         """
         if self.year is None or not self.data:
             print("ERROR: you need to first call fetch_feed(year)")
             return
 
-        # Create directory to store these JSON dumps under the HOME directory
-        dir_name = os.path.join(os.getenv("HOME"), "nvd_filtered_data")
+        # Create directory to store these JSON dumps under the current directory
+        dir_name = os.path.join(os.getenv("PWD"), "nvd_filtered_data")
         try:
             os.mkdir(dir_name)
         except FileExistsError as exc:
