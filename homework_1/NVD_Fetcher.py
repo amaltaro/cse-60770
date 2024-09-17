@@ -195,10 +195,3 @@ class NVD_Fetcher():
         print(f"Saving CVE parsing as: {f_name}")
         with open(f_name, "wt") as jo:
             json.dump(self.data, jo, indent=2, sort_keys=True)
-
-    
-
-#if __name__ == '__main__':
-#    fetcher = NVD_Fetcher()
-#    data = fetcher.fetch_feed(2012)
-#    fetcher.save_output()

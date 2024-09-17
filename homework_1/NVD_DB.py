@@ -162,10 +162,19 @@ class NVD_DB():
         print("Entries deleted. Now rewriting their up-to-date version")
         self.populate_tables(input_dict)
 
-
-    
-
-#if __name__ == '__main__':
-    #fetcher = NVD_Fetcher()
-    #data = fetcher.fetch_feed(2012)
-    #fetcher.save_output()
+    def search_cpe(self, product):
+        """
+        Given a product name (the library in question) and an optional vendor,
+        search the knowledge base data for CPE entries that match it.
+        :param product: string with the product/library name
+        :return: a list of lists with the following information:
+            cve_name, severity, cpe_match, version_start, version_end_inc, version_end_exc
+        """
+        sql = f"""SELECT cve_name, severity, cpe_match, version_start, version_end_inc, version_end_exc FROM cve
+            INNER JOIN cpe on cve.rowid = cpe.cve_id
+            WHERE cpe_match LIKE 'cpe:2.3:_:%:{product}:%'
+            """
+        self.cursor.execute(sql)
+        data = self.cursor.fetchall()
+        print(f"    Found {len(data)} CPE entries matching product: {product}")
+        return data
