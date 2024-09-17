@@ -40,7 +40,6 @@ class NVD_Fetcher():
         f_name = f"{self.base_url}{self.base_f_name}{year}{self.suffix_f_name}"
         print(f"Downloading gzip file for: {f_name}")
         # FIXME TODO: uncomment the code below
-        """
         resp = requests.get(f_name)
         # save output in a temporary file
         if resp.status_code >= 400:
@@ -52,6 +51,7 @@ class NVD_Fetcher():
         with gzip.open("/Users/amaltar2/Downloads/nvdcve-1.1-2022.json.gz", 'rb') as f:
             file_content = f.read()
             data = json.loads(file_content)
+        """
         # FIXME TODO: remove these 3 lines above
 
         print(f"  Found a total of {data['CVE_data_numberOfCVEs']} CVEs")
@@ -110,10 +110,10 @@ class NVD_Fetcher():
             cve_data['description'] += " " + item['value']
 
         if "DO NOT USE THIS CANDIDATE NUMBER" in cve_data['description']:
-            print(f"DEBUG: {cve_data['cve_id']} is not meant to be used, dropping it.")
+            #print(f"DEBUG: {cve_data['cve_id']} is not meant to be used, dropping it.")
             return {}
         if not entry['impact'] and 'Rejected reason:' in cve_data['description']:
-            print(f"DEBUG: {cve_data['cve_id']} has been rejected, dropping it.")
+            #print(f"DEBUG: {cve_data['cve_id']} has been rejected, dropping it.")
             return {}
             
 

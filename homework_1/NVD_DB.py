@@ -65,6 +65,7 @@ class NVD_DB():
 
     def drop_tables(self):
         """It drops all tables in the database"""
+        print(f"Dropping tables ...")
         for table_name in ('cpe', 'cwe', 'cve'):
             self.cursor.execute(f"DROP TABLE {table_name}")
         self.conn.commit()
@@ -142,6 +143,24 @@ class NVD_DB():
         self.cursor.executemany(sql, insert_data)
         self.conn.commit()
     
+    def update_tables(self, input_dict):
+        """
+        This method is meant to be used with recent and modified feeds, such that it
+        actually updates database entries, instead of blindly trying to add new ones.
+        :param input_dict: dictionary with well structured CVE data.
+        """
+        print(f"Updating a total of {len(input_dict)} CVE entries.")
+        for entry in input_dict:
+            if entry['cve_id'] not in self.cve_map:
+                continue
+            row_id = self.cve_map[entry['cve_id']]
+            self.cursor.execute('DELETE FROM cpe WHERE cve_id = ?', (row_id,))
+            self.cursor.execute('DELETE FROM cwe WHERE cve_id = ?', (row_id,))
+            self.cursor.execute('DELETE FROM cve WHERE cve_name = ?', (entry['cve_id'],))
+        self.conn.commit()
+
+        print("Entries deleted. Now rewriting their up-to-date version")
+        self.populate_tables(input_dict)
 
 
     
