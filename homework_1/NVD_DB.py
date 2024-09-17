@@ -176,5 +176,5 @@ class NVD_DB():
             """
         self.cursor.execute(sql)
         data = self.cursor.fetchall()
-        print(f"    Found {len(data)} CPE entries matching product: {product}")
+        #print(f"    Found {len(data)} CPE entries matching product: {product}")
         return data
