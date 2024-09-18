@@ -144,7 +144,7 @@ def convert_version(this_version, ver_start, ver_end_inc, ver_end_exc):
             else:
                 dict_ver[item[0]] = str(Version(item[1]))
         except InvalidVersion as exc:
-            print(f"ERROR: version type: {item[0]} is unparsable. Details: {str(exc)}")
+            #print(f"ERROR: version type: {item[0]} is unparsable. Details: {str(exc)}")
             # then, manually parse it
             tokens = item[1].split(".")
             for idx in range(min(len(tokens), 3)):
