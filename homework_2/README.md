@@ -41,3 +41,14 @@ python website/manage.py runserver
 ```
 
 Now a web-service should be running in your localhost node. Go to a web browser and access it through: http://127.0.0.1:8000/tasktracker
+
+### Cracking passwords
+
+There is no dependency in any third-party library, so you only need to have Python3 interpreter and execute the `crack_passwds.py` script as:
+```
+python crack_passwds.py
+```
+
+In addition to printing to stdout the total amount of combinations in each length attempted - from 3 to 6 characters - it also outputs the actual
+plain text password and its equivalent hash. Once the script has exhausted all possibilities, it summarizes the passwords identified in a text
+file called `cracked_passwords.txt`.
