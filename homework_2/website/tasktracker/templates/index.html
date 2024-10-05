@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="col-lg-10 mx-auto p-3 py-md-5">
+   <main>
+      <h1>Task list for user: </h1>
+      <p><a href="{% url 'tasktracker:add' %}">Add a new Task</a></p>
+      <ul>
+          {% for t in tasks %} 
+          <li>
+               <b>Task #{{t.id}}: {{t.title | safe}}</b>
+               <b class="text-muted">(
+                  {% if t.status == 'N' %}⚠️ Not started yet{% endif %}
+                  {% if t.status == 'C' %}✅ Completed{% endif %}
+                  {% if t.status == 'I' %}⏳ In Progress{% endif %}
+                  )
+               </b>
+               <form action="/tasktracker/delete/{{t.id}}/" method = "post">
+                  {% csrf_token %}
+                  <input class="btn btn-danger" type="submit" value="Delete">
+               </form> 
+          </li>
+          {% endfor %}
+      </ul>
+   </main>
+</div>
+{% endblock %}

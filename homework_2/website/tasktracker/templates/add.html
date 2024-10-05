@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block content %}      
+	<div class="col-lg-10 p-3 mx-auto border">
+   <h1>Add new Task</h1>
+
+   {%if errors %}
+   	<div class="alert alert-danger p-1" role="alert">
+      	{% for key, item_errors in errors.items %}
+      		{{key}}: 
+      		<ul>
+      			{% for error in item_errors %}<li>{{error}}</li>{% endfor %}
+      		</ul>
+      	{% endfor %}
+   	</div>
+   {% endif %}
+   <form action="/tasktracker/add/" method = "POST">
+      {% csrf_token %}
+      <div class="mb-3 row">
+         <label for="title" class="col-sm-2 col-form-label">Task title:</label>
+         <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" name="title" value="{{request.POST.title}}">
+         </div>
+      </div>
+      <div class="mb-3 row">
+         <label for="due_date" class="col-sm-2 col-form-label">Due date:</label>
+         <div class="col-sm-10">
+               <input type="text" class="form-control" id="due_date" name="due_date" value="{{request.POST.due_date}}">
+         </div>
+      </div>
+      <div class="mb-3 row">
+         <label for="due_date" class="col-sm-2 col-form-label">Due date:</label>
+         <div class="col-sm-10">
+            <select name="status" required="" id="id_status">
+              <option value="C" {% if request.POST.status == 'C' %}selected{% endif %}>Completed</option>
+              <option value="I" {% if request.POST.status == 'I' %}selected{% endif %}>In progress</option>
+              <option value="N" {% if request.POST.status == 'N' %}selected{% endif %}>Not started yet</option>
+            </select>
+         </div>
+      </div>
+      <input class="btn btn-success" type="submit" value="Add Task">
+   </form>
+</div>
+{% endblock %}
+
+
