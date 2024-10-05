@@ -8,7 +8,7 @@
       <ul>
           {% for t in tasks %} 
           <li>
-               <b>Task #{{t.id}}: {{t.title | safe}}</b>
+               <b>Task #{{t.id}}: {{t.title}}</b>
                <b class="text-muted">(
                   {% if t.status == 'N' %}⚠️ Not started yet{% endif %}
                   {% if t.status == 'C' %}✅ Completed{% endif %}
