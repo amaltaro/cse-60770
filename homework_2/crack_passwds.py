@@ -49,7 +49,7 @@ char_set = string.digits + string.ascii_letters + "&@#"
 pass_list = get_pass_list()
 
 found_passwds = []
-for limit in range(3, 4):
+for limit in range(3, 7):
     combs = math.pow(len(char_set), limit)
     print(f"Attempting full charset for size: {limit} with total combinations: {combs}")
     for gener_pass in brute_force(char_set, limit, limit):
