@@ -8,6 +8,8 @@
       <ul>
           {% for t in tasks %} 
           <li>
+            <!-- Remove the "safe" tag in the line below, otherwise HTML code is
+             not escaped prior to output, allowing for XSS attacks -->
                <b>Task #{{t.id}}: {{t.title}}</b>
                <b class="text-muted">(
                   {% if t.status == 'N' %}⚠️ Not started yet{% endif %}
